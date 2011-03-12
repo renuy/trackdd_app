@@ -1,5 +1,74 @@
+<script type="text/javascript">
+  function setPrinterDiv(id){
+    document.getElementById(id).style.display = 'block';
+    $('#print_div').printElement({
+      overrideElementCSS:['print.css', { href:'print.css', media:'print'}],
+      leaveOpen:true,
+      printMode:'popup'
+    });
+		document.getElementById(id).style.display = 'none';
+  }
+</script>
+<p></p>
+<h3><span style="font-family: geneva, arial, helvetica, sans-serif;font-size: 1.0em;"><u><b>Door Delivery/Pickup Receipt</b></u></span></h3>
+<%= button_to_function 'Print', "setPrinterDiv('print_div');" %> 
+
 <p id="notice"><%= notice %></p>
 
+<div class='span-14' id="print_div">
+  <table>
+    <tr>
+      <th colspan="1" >Member:</th><td colspan="1" align="left"> <%=@shipment.member.member%><hr/></td> 
+      <th colspan="1" align="right">Card:</th><td colspan="1" align="left"><%=@shipment.card_id%><hr/></td>
+    <tr>
+    <tr><th colspan="1">Address:</th><td colspan="3"><%=@shipment.destination%><hr/></td> <tr>
+    <tr><th colspan="1">Phone:</th><td colspan="1"><%=@shipment.member.phone%><hr/></td> <tr>
+    <tr><th colspan="1">Instruction:</th><td colspan="3"><br/><%="None" if @shipment.special_instr.nil?%><%= @shipment.special_instr%><hr/></td> <tr>
+  </table>
+    <h3>
+      <%= "Books to deilver" unless @goods_to_deliver.size==0 %>
+    </h3>
+  
+  <table>
+    <% @goods_to_deliver.each do |deliver| %>
+      <tr>
+        <th colspan="1"><%=deliver.book_no%></th> <td colspan="3"><%=deliver.book.title.title%></th>
+        <hr/>
+      </tr>
+      
+    <% end %>
+  </table>
+  <h3>
+    <%= "Books to pickup" unless @goods_to_deliver.size==0 %>
+  </h3>
+  <table>
 
-<%= link_to 'Edit', edit_shipment_path(@shipment) %> |
-<%= link_to 'Back', shipments_path %>
+    <% @goods_to_pickup.each do |pickup| %>
+      <tr>
+        <th colspan="1"><%=pickup.book_no%></th> <td colspan="3"><%=pickup.book.title.title%></th>
+        <hr/>
+      </tr>
+      
+    <% end %>
+  </table>
+
+  <table>
+    <tr>
+      <th colspan="1">Record at:</th><td colspan="1"><%=@shipment.created_at.strftime('%d/%b/%Y %l:%M %p')%><hr/></td>
+      <th colspan="1">By:</th><td colspan="1"><br/><hr/></td>
+    </tr>
+    <tr>
+      <th colspan="1">For </th><th colspan="1">JustBooksClc</th>
+      <th colspan="1"> </th><td colspan="1"><%=@shipment.origin.name%><hr/></td>
+    </tr>
+
+    <tr>
+      <th colspan="1">Member signature:</th><td colspan="1"><span align="bottom"><br/><hr/></td>
+      <th colspan="1">Comments:</th><td colspan="3"><br/><hr/></td>
+    </tr>
+  </table>
+</div>
+<div class='span-17'>
+  <!--%= link_to 'Edit', edit_shipment_path(@shipment) %--> |
+  <%= link_to 'Back', new_shipment_path %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310114110) do
+ActiveRecord::Schema.define(:version => 20110312102014) do
 
   create_table "goods", :force => true do |t|
     t.integer  "book_no",     :precision => 38, :scale => 0
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110310114110) do
     t.string   "special_instr"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "membership_id", :precision => 38, :scale => 0
   end
 
 end

@@ -2,16 +2,19 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Card </th>
+    <th>Action</th>
+    <th>On</th>
   </tr>
 
 <% @shipments.each do |shipment| %>
   <tr>
+    <td><%= shipment.card_id %></td>
+    <td><%= shipment.action %></td>
+    <td><%= shipment.created_at.strftime('%d/%b/%Y %l:%M %p') %></td>
     <td><%= link_to 'Show', shipment %></td>
-    <td><%= link_to 'Edit', edit_shipment_path(shipment) %></td>
-    <td><%= link_to 'Destroy', shipment, :confirm => 'Are you sure?', :method => :delete %></td>
+    <!--td><%= link_to 'Edit', edit_shipment_path(shipment) %></td -->
+    <!--td><%= link_to 'Destroy', shipment, :confirm => 'Are you sure?', :method => :delete %></td-->
   </tr>
 <% end %>
 </table>

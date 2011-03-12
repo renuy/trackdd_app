@@ -14,7 +14,8 @@ class ShipmentsController < ApplicationController
   # GET /shipments/1.xml
   def show
     @shipment = Shipment.find(params[:id])
-
+    @goods_to_deliver =  Good.find_all_by_shipment_id_and_action(@shipment.id, 'Deliver')
+    @goods_to_pickup =  Good.find_all_by_shipment_id_and_action(@shipment.id, 'Pickup')
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @shipment }
@@ -25,6 +26,8 @@ class ShipmentsController < ApplicationController
   # GET /shipments/new.xml
   def new
     @shipment = Shipment.new
+    3.times { @shipment.goods.build }
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +44,6 @@ class ShipmentsController < ApplicationController
   # POST /shipments.xml
   def create
     @shipment = Shipment.new(params[:shipment])
-
     respond_to do |format|
       if @shipment.save
         format.html { redirect_to(@shipment, :notice => 'Shipment was successfully created.') }
@@ -79,5 +81,10 @@ class ShipmentsController < ApplicationController
       format.html { redirect_to(shipments_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def find
+    @member = Membership.find_by_card_id(params[:card])
+    render 'find', :layout => false
   end
 end

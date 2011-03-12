@@ -1,6 +1,10 @@
 TrackddApp::Application.routes.draw do
+  resources :goods
+
   resources :shipments
 
+  root :to => "shipments#new"
+  match '/shipment/find' => 'shipments#find'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,4 +1,10 @@
-<%= form_for(@shipment) do |f| %>
+<%= javascript_tag :defer => 'defer' do -%>
+	$(document).ready(function () {
+		ShipmentApp.initForm('Exchange', true);
+	});
+<% end -%>
+
+<%= form_for(@shipment)  do |f| %>
   <% if @shipment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@shipment.errors.count, "error") %> prohibited this shipment from being saved:</h2>
@@ -11,7 +17,51 @@
     </div>
   <% end %>
 
-  <div class="actions">
+  	<div class="span-17 heading">
+			Enter delivery/pickup details
+		</div>
+		<br/>
+		<div class="span-17">
+			<table class='form'>
+        <tr>
+          <td colspan="3">					
+            Exchange <%= f.radio_button :action, Shipment::ACTION[:Exchange], {:checked => true} %>
+               Deliver <%= f.radio_button :action, Shipment::ACTION[:Deliver] %>
+            Pick up<%= f.radio_button :action, Shipment::ACTION[:Pickup] %>
+          </td>
+        </tr>
+
+				<tr><td colspan="1"><%= f.label :Branch %></td><td colspan="1"><%= f.collection_select :origin_id, Branch.all, :id, :name %></td></tr>
+				<tr><td colspan="1"><%= f.label 'Card No' %></td><td colspan="1"><%= f.text_field :card_id , :maxlength => 30 %></td> <td colspan="1"><%= text_field_tag :mem_phone, '', :class=>'readonly',:readonly=>'true' %></td></tr>
+				<tr><td colspan="1"><%= f.label :Address %></td><td colspan="2"><%= f.text_area :destination, :maxlength => 500, :size => "15x3" ,:placeholder => 'change the default address'%></td></tr>
+				<tr><td colspan="1"><%= f.label 'Special Intructions' %></td><td colspan="2"><%= f.text_area :special_instr, :maxlength => 250, :size => "15x3" ,:placeholder => 'specific time to pickup/deliver'%></td></tr>
+			</table>
+		</div>
+		<div class="span-9" id="div_deliver_goods">
+			<table id='goods_table' class='form'>
+				<tr><th>Books to deliver</th><th></th></tr>
+				<%= f.fields_for :goods do |builder| -%>
+					<%= render 'good_deliver', :f => builder %>
+				<% end -%>
+			</table>
+			<%= link_to_function "Add Good", "ShipmentApp.addGood('#goods_table');" %>
+		</div>
+    <div class="span-17" id="destination_div"  style="display:none">
+      <%= text_field_tag :mem_addr %>
+      <%= text_field_tag :mem_phone_hid %>
+    </div>
+    <div class="span-9" id="div_pickup_goods">
+			<table id='goods_table' class='form'>
+				<tr><th>Books to pickup</th><th></th></tr>
+				<%= f.fields_for :goods do |builder| -%>
+					<%= render 'good_pickup', :f => builder %>
+				<% end -%>
+			</table>
+			<%= link_to_function "Add Good", "ShipmentApp.addGood('#goods_table');" %>
+		</div>
+
+  
+  <div class="span-24 actions">
     <%= f.submit %>
   </div>
 <% end %>
