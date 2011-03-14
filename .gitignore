@@ -2,3 +2,9 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+
+app/views/devise/sessions/new.html.erb
+Gemfile
+Gemfile.lock
+config/database.yml
+
