@@ -1,0 +1,81 @@
+<%= javascript_tag :defer => 'defer' do -%>
+	$(document).ready(function () {
+		ShipmentApp.initForm('Exchange', true);
+	});
+<% end -%>
+
+<%= form_for(@shipment)  do |f| %>
+  <% if @shipment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shipment.errors.count, "error") %> prohibited this shipment from being saved:</h2>
+
+      <ul>
+      <% @shipment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  	<div class="span-17 heading">
+			Confirm delivery/pickup
+		</div>
+		<br/>
+		<div class="span-17">
+			<table class='form'>
+        <tr>
+          <td colspan="6">					
+            <%= @shipment.action %>
+          </td>
+        </tr>
+
+				<tr><td colspan="2"><%= f.label :Branch %></td><td colspan="4"><%= @shipment.origin.name %></td></tr>
+				<tr><td colspan="2"><%= f.label 'Card No' %></td>
+            <td colspan="1"><%= @shipment.card_id  %></td> 
+            <td colspan="2"><%= @shipment.member.member %> 
+            <td colspan="1"><%= @shipment.member.phone  %></td>
+        </tr>
+        
+				<tr><td colspan="2"><%= f.label 'Address' %></td>
+            <td colspan="4"><%= @shipment.destination %></td>
+        </tr>
+				<tr><td colspan="2"><%= f.label 'Special Intructions' %></td>
+            <td colspan="4"><%= @shipment.special_instr %></td>
+        </tr>
+			</table>
+		</div>
+		<div class="span-17" id="div_deliver_goods">
+      <h3>Books to deliver</h3>
+      <table id='goods_table' class='form'>
+				
+				<% @goods_to_deliver.each do |deliver| %>
+          <tr>
+            <td colspan="1"><b><%=deliver.book_no_str%></b></td>
+            <td colspan="5"><%=deliver.book.title.title%></td>
+            <td colspan="1">delivered?</td>
+          </tr>
+      <% end %>
+			</table>
+		</div>
+    
+    <div class="span-17" id="title_div"  style="display:none">
+    </div>
+    <div class="span-17" id="div_pickup_goods">
+      <h3>Books to pickup</h3>
+			<table id='goods_table' class='form'>
+				
+				<% @goods_to_pickup.each do |pickup| %>
+          <tr>
+            <td colspan="1"><b><%=pickup.book_no_str%></b></td>
+            <td colspan="5"><%=pickup.book.title.title%></td>
+            <td colspan="1">recieved?</td>
+          </tr>
+      <% end %>
+			</table>
+		</div>
+
+  
+  <div class="span-24 actions">
+    <%= f.submit %>
+  </div>
+<% end %>

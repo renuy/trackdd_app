@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title><%= title %></title>
@@ -20,29 +20,21 @@
 
   <%= csrf_meta_tag %>
 
-	<script type="text/javascript">
-	    $(document).ready(function() {
-					$('.scroll-pane').jScrollPane();
-	        <%= yield :javascript %>
-	    });
-	</script>
-	
 </head>
-
 <body>
 
 <div class="container">	
 	<div class="span-24">
 		<p class="masthead"><%= image_tag('JustBooks.gif', :id => 'logo', :size => '253x56')%></p>
 	</div>
-  <% if user_signed_in? -%>
-    <div id="user_login_box" class="span-11 push-13 last">
-      <span> <span id='current_branch'><%= current_user.current_branch.name if current_user.current_branch %></span> | <%= current_user.email %> |
-      <%= link_to 'My info', edit_user_registration_path %> |
-      <%= link_to 'Sign out', destroy_user_session_path %> </span>
-    </div>
-  <% end -%>
-	
+  <div id="user_nav">
+    <% if user_signed_in? %>
+      Signed in as <%= current_user.email %>. Not you?
+      <%= link_to "Sign out", destroy_user_session_path %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+    <% end %>
+  </div>	
 	<div class="span-24">
 		<%= yield %>
 	</div>

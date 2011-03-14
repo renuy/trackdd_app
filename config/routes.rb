@@ -1,9 +1,16 @@
 TrackddApp::Application.routes.draw do
+  resources :authentications, :branches
+
+  devise_for :users, :path => 'accounts', :controllers => {:registrations => 'registrations'}
+
   resources :goods
 
   resources :shipments
 
-  root :to => "shipments#new"
+  root :to => "Dashboard#show"
+  match '/dashboard' => 'dashboard#show'
+  match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'Dashboard#show'
   match '/shipment/find_member' => 'shipments#find_member'
   match '/shipment/find_book' => 'shipments#find_book'
 
