@@ -1,4 +1,6 @@
 ﻿<tr>
-	<td><%= f.text_field :book_no ,:maxlength => 30 ,:placeholder => 'Enter book no without "B"...'%></td>
-  <td><%= f.hidden_field :action ,:value=>'Pickup', :maxlength => 30 %></td>
+	<td><%= f.text_field :book_no_str ,:maxlength => 15 ,:placeholder => 'Prefix "B"...', :onChange => 'ShipmentApp.book_str(this);' %></td>
+  <td><%= f.text_field :title, :class=>'readonly',:readonly=>'true' %> </td>
+  <td><%= f.hidden_field :action ,:value=>'Pickup' %></td>
+  <td><%= f.hidden_field :book_no %></td>
 </tr>

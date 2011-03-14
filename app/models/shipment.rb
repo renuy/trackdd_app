@@ -10,7 +10,7 @@ class Shipment < ActiveRecord::Base
 	accepts_nested_attributes_for :goods, :allow_destroy => :true, :reject_if => lambda { |a| a[:book_no].blank? }
   belongs_to :member, :class_name => 'Membership', :foreign_key => 'membership_id'
   belongs_to :origin, :class_name => 'Branch', :foreign_key => 'origin_id'
-  attr_accessible :origin_id, :destination, :goods_attributes, :special_instr, :action, :card_id
+  attr_accessible :origin_id, :destination, :goods_attributes, :special_instr, :action, :card_id, :change_addr
   validate :card_exists
 
   before_save :set_member

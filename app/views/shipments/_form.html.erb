@@ -24,17 +24,27 @@
 		<div class="span-17">
 			<table class='form'>
         <tr>
-          <td colspan="3">					
+          <td colspan="6">					
             Exchange <%= f.radio_button :action, Shipment::ACTION[:Exchange], {:checked => true} %>
                Deliver <%= f.radio_button :action, Shipment::ACTION[:Deliver] %>
             Pick up<%= f.radio_button :action, Shipment::ACTION[:Pickup] %>
           </td>
         </tr>
 
-				<tr><td colspan="1"><%= f.label :Branch %></td><td colspan="1"><%= f.collection_select :origin_id, Branch.all, :id, :name %></td></tr>
-				<tr><td colspan="1"><%= f.label 'Card No' %></td><td colspan="1"><%= f.text_field :card_id , :maxlength => 30 %></td> <td colspan="1"><%= text_field_tag :mem_phone, '', :class=>'readonly',:readonly=>'true' %></td></tr>
-				<tr><td colspan="1"><%= f.label :Address %></td><td colspan="2"><%= f.text_area :destination, :maxlength => 500, :size => "15x3" ,:placeholder => 'change the default address'%></td></tr>
-				<tr><td colspan="1"><%= f.label 'Special Intructions' %></td><td colspan="2"><%= f.text_area :special_instr, :maxlength => 250, :size => "15x3" ,:placeholder => 'specific time to pickup/deliver'%></td></tr>
+				<tr><td colspan="2"><%= f.label :Branch %></td><td colspan="4"><%= f.collection_select :origin_id, Branch.all, :id, :name %></td></tr>
+				<tr><td colspan="2"><%= f.label 'Card No' %></td>
+            <td colspan="1"><%= f.text_field :card_id , :maxlength => 15 %></td> 
+            <td colspan="2"><%= text_field_tag :mem_name, '', :class=>'readonly',:readonly=>'true' %> 
+            <td colspan="1"><%= text_field_tag :mem_phone, '', :class=>'readonly',:readonly=>'true' %></td>
+        </tr>
+        
+				<tr><td colspan="2"><%= f.label 'Change address' %></td>
+            <td colspan="4"><%= f.check_box :change_addr, {:checked => 'unchecked'}, 'Y', 'N' %></td>
+        <tr>
+            <td colspan="2"><br/></td> 
+            <td colspan="4"><%= f.text_area :destination, :maxlength => 500, :size => "15x3" ,:placeholder => 'click change the default address', :readonly=> 'true' %></td>
+        </tr>
+				<tr><td colspan="2"><%= f.label 'Special Intructions' %></td><td colspan="4"><%= f.text_area :special_instr, :maxlength => 250, :size => "15x3" ,:placeholder => 'specific time to pickup/deliver'%></td></tr>
 			</table>
 		</div>
 		<div class="span-9" id="div_deliver_goods">
@@ -44,11 +54,14 @@
 					<%= render 'good_deliver', :f => builder %>
 				<% end -%>
 			</table>
-			<%= link_to_function "Add Good", "ShipmentApp.addGood('#goods_table');" %>
 		</div>
     <div class="span-17" id="destination_div"  style="display:none">
       <%= text_field_tag :mem_addr %>
       <%= text_field_tag :mem_phone_hid %>
+      <%= text_field_tag :mem_name_hid %>
+
+    </div>
+    <div class="span-17" id="title_div"  style="display:none">
     </div>
     <div class="span-9" id="div_pickup_goods">
 			<table id='goods_table' class='form'>
@@ -57,7 +70,6 @@
 					<%= render 'good_pickup', :f => builder %>
 				<% end -%>
 			</table>
-			<%= link_to_function "Add Good", "ShipmentApp.addGood('#goods_table');" %>
 		</div>
 
   

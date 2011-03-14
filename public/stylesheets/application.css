@@ -38,6 +38,7 @@ a.signup_button {
 
 input.readonly {
 	border:none;
+  background-color:inherit;
 }
 .nobox {
 	border:none;

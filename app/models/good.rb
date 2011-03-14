@@ -1,7 +1,8 @@
 class Good < ActiveRecord::Base
   belongs_to :book, :class_name => 'Book', :foreign_key => 'book_no'
   belongs_to :shipment
-  attr_accessible :book_no, :action, :state  
+  attr_accessible :book_no, :action, :state, :book_no_str
+  attr_accessor :title
   validates :book_no, :presence => true, :uniqueness => {:scope => :shipment_id}, :length => { :maximum => 30 }
   validate :book_exists
 

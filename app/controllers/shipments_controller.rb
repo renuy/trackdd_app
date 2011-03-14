@@ -26,7 +26,7 @@ class ShipmentsController < ApplicationController
   # GET /shipments/new.xml
   def new
     @shipment = Shipment.new
-    3.times { @shipment.goods.build }
+    5.times { @shipment.goods.build }
 
 
     respond_to do |format|
@@ -83,8 +83,15 @@ class ShipmentsController < ApplicationController
     end
   end
   
-  def find
+  def find_member
     @member = Membership.find_by_card_id(params[:card])
-    render 'find', :layout => false
+    render 'find_member', :layout => false
   end
+  
+  def find_book
+    @book = Book.find(params[:book_no])
+    @col_name = params[:col_name]
+    render 'find_book', :layout => false
+  end
+
 end
