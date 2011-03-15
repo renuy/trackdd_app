@@ -37,6 +37,7 @@
         </tr>
         
 				<tr><td colspan="2"><%= f.label 'Address' %></td>
+            <!--td colspan="1"><%= f.check_box :change_addr, {:readonly=>'true'}, 'Y', 'N' %></td-->
             <td colspan="4"><%= @shipment.destination %></td>
         </tr>
 				<tr><td colspan="2"><%= f.label 'Special Intructions' %></td>
