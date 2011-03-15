@@ -38,8 +38,6 @@ class ShipmentsController < ApplicationController
   # GET /shipments/1/edit
   def edit
     @shipment = Shipment.find(params[:id])
-    @goods_to_deliver =  Good.find_all_by_shipment_id_and_action(@shipment.id, 'Deliver')
-    @goods_to_pickup =  Good.find_all_by_shipment_id_and_action(@shipment.id, 'Pickup')
   end
 
   # POST /shipments

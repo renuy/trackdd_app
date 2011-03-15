@@ -1,7 +1,0 @@
-﻿<tr>
-  <td><%= f.text_field :book_no_str ,:maxlength => 15 ,:placeholder => 'Prefix "B"...', :onChange => 'ShipmentApp.book_str(this);' %></td>
-  <td><%= f.text_field :title, :class=>'readonly',:readonly=>'true' %> </td>
-  
-  <td><%= f.hidden_field :action ,:value=>'Deliver' %></td>
-  <td><%= f.hidden_field :book_no %></td>
-</tr>

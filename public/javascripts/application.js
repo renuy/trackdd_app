@@ -8,10 +8,8 @@ ShipmentApp.book_str = function(good){
   book_no_col_name = '.new_shipment input[name="'+col_name.replace('book_no_str','book_no')+'"]';
   book_no = book_str.substring(1, book_str.length);
   $(book_no_col_name).val(book_no);
-  debugger;
   $.get('/shipment/find_book?' + 'book_no=' + book_no+'&col_name='+col_name,
 		function(data) {
-      debugger;
       $('#new_shipment #title_div').html(data);
       col_name = $('#col_name_hid').val();
       title_col_name = '.new_shipment input[name="'+col_name.replace('book_no_str','title')+'"]';
@@ -53,3 +51,12 @@ $('.new_shipment #shipment_card_id').live('change', function() {
       $('#mem_name').val('Name : '+$('#mem_name_hid').val());
 		});
 });
+
+ShipmentApp.receive = function(link) {
+alert($(link).val());
+alert($(link).attr('name'));
+debugger;
+	if ($(link).val() == 'New')
+    $(link).val('Confirmed');
+  $(link).hide();
+};
