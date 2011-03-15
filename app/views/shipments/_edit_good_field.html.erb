@@ -1,8 +1,8 @@
 ﻿<tr>
-  <td colspan="1"><%= f.text_field :book_no_str, :class=>'readonly',:readonly=>'true' %></td>
+  <td colspan="1"><%= f.text_field :book_no_str, :class=>'readonly',:readonly=>'true', :maxlength=>10 %></td>
   <td colspan="3"><%= f.text_field :book_title, :class=>'readonly',:readonly=>'true' %> </td>
-  <td colspan="1"><%= f.text_field :action, :class=>'readonly',:readonly=>'true' %> </td>
-  <td colspan="1"><%= f.hidden_field :book_no %>
+  <td colspan="1"><%= f.text_field :action, :class=>'readonly',:readonly=>'true', :maxlength=>10 %> </td>
+  <td colspan="1"><%= f.hidden_field :book_no, :maxlength=>15 %>
       <%= f.check_box :state, { }, 'Confirmed', 'New' %></td>
   </td>
   

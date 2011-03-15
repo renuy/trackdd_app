@@ -3,7 +3,7 @@
 		ShipmentApp.initForm('Exchange', true);
 	});
 <% end -%>
-
+<div class="span-14">
 <%= form_for(@shipment)  do |f| %>
   <% if @shipment.errors.any? %>
     <div id="error_explanation">
@@ -17,7 +17,7 @@
     </div>
   <% end %>
 
-  	<div class="span-17 heading">
+  	<div class="span-14 heading">
 			Enter delivery/pickup details
 		</div>
 		<br/>
@@ -47,7 +47,7 @@
 				<tr><td colspan="2"><%= f.label 'Special Intructions' %></td><td colspan="4"><%= f.text_area :special_instr, :maxlength => 250, :size => "15x3" ,:placeholder => 'specific time to pickup/deliver'%></td></tr>
 			</table>
 		</div>
-		<div class="span-9" id="div_deliver_goods">
+		<div class="span-7" id="div_deliver_goods">
 			<table id='goods_table' class='form'>
 				<tr><th>Books to deliver</th><th></th></tr>
 				<%= f.fields_for :goods do |builder| -%>
@@ -55,15 +55,15 @@
 				<% end -%>
 			</table>
 		</div>
-    <div class="span-17" id="destination_div"  style="display:none">
+    <div class="span-14" id="destination_div"  style="display:none">
       <%= text_field_tag :mem_addr %>
       <%= text_field_tag :mem_phone_hid %>
       <%= text_field_tag :mem_name_hid %>
 
     </div>
-    <div class="span-17" id="title_div"  style="display:none">
+    <div class="span-14" id="title_div"  style="display:none">
     </div>
-    <div class="span-9" id="div_pickup_goods">
+    <div class="span-7" id="div_pickup_goods">
 			<table id='goods_table' class='form'>
 				<tr><th>Books to pickup</th><th></th></tr>
 				<%= f.fields_for :goods do |builder| -%>
@@ -73,7 +73,8 @@
 		</div>
 
   
-  <div class="span-24 actions">
+  <div class="span-14 actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>

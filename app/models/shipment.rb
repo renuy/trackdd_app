@@ -44,5 +44,42 @@ class Shipment < ActiveRecord::Base
     end
 
   end
-
+  
+  def self.search(params, start_d_s, end_d_s)
+    created = params[:Created]
+    branch_id = params[:branch_id]
+    start_date = Time.zone.today.beginning_of_day
+    end_date =  Time.zone.today.end_of_day
+    case 
+      when created.eql?('Today')
+        start_date = Time.zone.today.beginning_of_day
+        end_date =  Time.zone.today.end_of_day
+      when created.eql?('Range')
+        start_date = start_d_s.to_time.beginning_of_day
+        end_date =  end_d_s.to_time.beginning_of_day
+      when created.eql?('On')
+        start_date = start_d_s.to_time.beginning_of_day
+        end_date =  start_d_s.to_time.end_of_day
+    end
+    ship = nil
+    
+    if (branch_id.eql?('0') ) then
+      if created.eql?('All') then 
+        ship = Shipment.find(:all, :order => ' id DESC').paginate(:page => params[:page], :per_page => 10)
+      else
+        ship =  Shipment.find(:all, :conditions => [' created_at >= ? and created_at <= ? ', 
+        start_date, end_date], :order => ' id DESC').paginate(:page => params[:page], :per_page => 10)
+      end
+    elsif
+      if created.eql?('All') then 
+        ship = Shipment.find(:all, :conditions => ['origin_id = ? ', branch_id],:order => ' id DESC').paginate(:page => params[:page], :per_page => 10)
+        
+      else
+        ship = Shipment.find(:all, :conditions => [' origin_id = ? and created_at >= ? and created_at <= ? ', 
+        branch_id, start_date, end_date], :order => ' id DESC').paginate(:page => params[:page], :per_page => 10)
+        
+      end
+    end
+    return ship
+  end
 end

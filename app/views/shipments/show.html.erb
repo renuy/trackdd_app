@@ -9,81 +9,87 @@
 		document.getElementById(id).style.display = 'none';
   }
 </script>
-<p></p>
-<h3><span style="font-family: geneva, arial, helvetica, sans-serif;font-size: 1.0em;"><u><b>Door Delivery/Pickup Receipt</b></u></span></h3>
-<%= button_to_function 'Print', "setPrinterDiv('print_div');" %> 
+<div class=span-24">
+  <div>
+    <%= render 'menu' %>
+  </div>
+  <div class="span-14">
+    <p></p>
+    <div class="span-14 heading">
+			Door Delivery/Pickup Receipt
+		</div>
 
-<p id="notice"><%= notice %></p>
+    <%= button_to_function 'Print', "setPrinterDiv('print_div');" %> 
 
-<div class='span-14' id="print_div">
-  <table>
-    <tr>
-      <td colspan="2" ><b>Receipt No.</b></td><td colspan="3"> <%=@shipment.id%></td> 
+    <p id="notice"><%= notice %></p>
+
+    <div class='span-14' id="print_div">
+      <table>
+        <tr>
+          <td colspan="2" ><b>Receipt No.</b></td><td colspan="3"> <%=@shipment.id%></td> 
+          
+        </tr>
+        <tr>
+          <td colspan="1" ><b>Member:</b></td><td colspan="4"> <%=@shipment.member.member%></td> 
+        </tr>
+        <tr>
+          <td colspan="1"> <b>Card:</b></td><td colspan="4"><%=@shipment.card_id%></td>
+        <tr>
+        <tr><td colspan="5"><b>Address:</b></td></tr>
+        <tr><td colspan="4"><%=@shipment.destination%></td> <tr>
+        <tr><td colspan="1">Phone:</td><td colspan="4"><%=@shipment.member.phone%></td> <tr>
+        <tr><td colspan="1"><b>Instruction:</b></td><td colspan="4"><%="None" if @shipment.special_instr.nil?%><%= @shipment.special_instr%></td> <tr>
+      </table>
+        <h3>
+          <%= "Books to deilver" unless @goods_to_deliver.size==0 %>
+        </h3>
       
-    </tr>
-    <tr>
-      <td colspan="1" ><b>Member:</b></td><td colspan="4"> <%=@shipment.member.member%></td> 
-    </tr>
-    <tr>
-      <td colspan="1"> <b>Card:</b></td><td colspan="4"><%=@shipment.card_id%></td>
-    <tr>
-    <tr><td colspan="5"><b>Address:</b></td></tr>
-    <tr><td colspan="4"><%=@shipment.destination%></td> <tr>
-    <tr><td colspan="1">Phone:</td><td colspan="4"><%=@shipment.member.phone%></td> <tr>
-    <tr><td colspan="1"><b>Instruction:</b></td><td colspan="4"><%="None" if @shipment.special_instr.nil?%><%= @shipment.special_instr%></td> <tr>
-  </table>
-    <h3>
-      <%= "Books to deilver" unless @goods_to_deliver.size==0 %>
-    </h3>
-  
-  <table>
-    <% @goods_to_deliver.each do |deliver| %>
-      <tr>
-        <td colspan="5"><b><%=deliver.book_no_str%></b></td>
-      </tr>
-      <tr>        
-        <td colspan="5"><%=deliver.book.title.title%></td>
-      </tr>
-      
-    <% end %>
-  </table>
-  <h3>
-    <%= "Books to pickup" unless @goods_to_deliver.size==0 %>
-  </h3>
-  <table>
+      <table>
+        <% @goods_to_deliver.each do |deliver| %>
+          <tr>
+            <td colspan="5"><b><%=deliver.book_no_str%></b></td>
+          </tr>
+          <tr>        
+            <td colspan="5"><%=deliver.book.title.title%></td>
+          </tr>
+          
+        <% end %>
+      </table>
+      <h3>
+        <%= "Books to pickup" unless @goods_to_deliver.size==0 %>
+      </h3>
+      <table>
 
-    <% @goods_to_pickup.each do |pickup| %>
-      <tr>
-        <td colspan="5"><b><%=pickup.book_no_str%></b></td> 
-      </tr>
-      <tr>
-        <td colspan="5"><%=pickup.book.title.title%></td>
-        
-      </tr>
-      
-    <% end %>
-  </table>
+        <% @goods_to_pickup.each do |pickup| %>
+          <tr>
+            <td colspan="5"><b><%=pickup.book_no_str%></b></td> 
+          </tr>
+          <tr>
+            <td colspan="5"><%=pickup.book.title.title%></td>
+            
+          </tr>
+          
+        <% end %>
+      </table>
 
-  <table>
-    <tr>
-      <th colspan="2">Record at:</th><td colspan="3"><%=@shipment.created_at.strftime('%d/%b/%Y %l:%M %p')%></td>
-    </tr>
-    <tr>
-      <td colspan="1">By:</td><td colspan="4"><br/><hr/></td>
-    </tr>
-    <tr>
-      <td colspan="5">For JustBooksClc <%=@shipment.origin.name%></td>
-    </tr>
+      <table>
+        <tr>
+          <th colspan="2">Record at:</th><td colspan="3"><%=@shipment.created_at.strftime('%d/%b/%Y %l:%M %p')%></td>
+        </tr>
+        <tr>
+          <td colspan="1">By:</td><td colspan="4"><br/><hr/></td>
+        </tr>
+        <tr>
+          <td colspan="5">For JustBooksClc <%=@shipment.origin.name%></td>
+        </tr>
 
-    <tr>
-      <td colspan="2"><b>Member signature:</b></td><td colspan="3"><span align="bottom"><br/><hr/></td>
-    </tr>
-    <tr>
-          <td colspan="1"><b>Comments:</b></td><td colspan="3"><br/><hr/></td>
-    </tr>
-  </table>
-</div>
-<div class='span-17'>
-  <!--%= link_to 'Edit', edit_shipment_path(@shipment) %--> |
-  <%= link_to 'Back', new_shipment_path %>
+        <tr>
+          <td colspan="2"><b>Member signature:</b></td><td colspan="3"><span align="bottom"><br/><hr/></td>
+        </tr>
+        <tr>
+              <td colspan="1"><b>Comments:</b></td><td colspan="3"><br/><hr/></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

@@ -13,7 +13,7 @@ TrackddApp::Application.routes.draw do
   match '/auth/failure' => 'Dashboard#show'
   match '/shipment/find_member' => 'shipments#find_member'
   match '/shipment/find_book' => 'shipments#find_book'
-
+  match 'shipments_search' => 'shipments#search'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

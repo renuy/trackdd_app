@@ -60,3 +60,22 @@ debugger;
     $(link).val('Confirmed');
   $(link).hide();
 };
+
+ShipmentApp.initStatForm = function (option, onload) {
+	if (option == 'On' || option == 'Range') {
+		$('.shipmentStat #div_start_date').show();
+     
+    if (option == 'Range'){
+      $('.shipmentStat #div_end_date').show();
+		}
+    else
+    {
+      $('.shipmentStat #div_end_date').hide();
+    }
+	} else {
+		$('.shipmentStat #div_start_date').hide();
+		$('.shipmentStat #div_end_date').hide();
+	}
+};
+
+$('.shipmentStat #Created').live('change', function() {ShipmentApp.initStatForm($('.shipmentStat #Created').val(), false);});
